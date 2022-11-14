@@ -1,3 +1,5 @@
+package Application;
+
 public class HashTable {
 
     static final class Node {

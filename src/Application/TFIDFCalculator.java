@@ -1,3 +1,5 @@
+package Application;
+
 import java.util.ArrayList;
 
 public class TFIDFCalculator {

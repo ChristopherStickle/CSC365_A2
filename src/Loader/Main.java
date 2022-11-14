@@ -34,7 +34,7 @@ public class Main {
         }
 
 
-        // write the Extendable HashTable tables to a file, one for each table
+        // write the Extendable Application.HashTable tables to a file, one for each table
 
 
 

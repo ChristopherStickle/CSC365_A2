@@ -1,4 +1,4 @@
-//This abstraction of a webpage will hold all relevant url contents separately
+package Application;//This abstraction of a webpage will hold all relevant url contents separately
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ public class PageProperties {
         this.url=url;
         this.parsed_words=parsed_words;
 
-        //foreach entry in the word[] add it to a HashTable
+        //foreach entry in the word[] add it to a Application.HashTable
         for (String word : parsed_words) {
             local_words.add(word);
         }
@@ -57,7 +57,7 @@ public class PageProperties {
         }
     }
     static void setTFIDFScores(ArrayList<PageProperties> pageList, String[] userIn){
-        // for each word in userIn, for each page in page list, check if the word exists in the HashTable, if so
+        // for each word in userIn, for each page in page list, check if the word exists in the Application.HashTable, if so
         //      get the words tfidf score and add it to that page's simScore
         for(String word : userIn){
             for( PageProperties page : pageList){
@@ -66,7 +66,7 @@ public class PageProperties {
             }
         }
         // Echo-Check
-        /*for(PageProperties page : pageList){
+        /*for(Application.PageProperties page : pageList){
             System.out.println(page.similarityScore);
         }*/
 
