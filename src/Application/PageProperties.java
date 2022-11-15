@@ -1,5 +1,7 @@
 package Application;//This abstraction of a webpage will hold all relevant url contents separately
 
+import Loader.ExtendableHashTable;
+
 import java.util.ArrayList;
 
 public class PageProperties {
@@ -7,6 +9,7 @@ public class PageProperties {
     private String url;
     private String[] parsed_words;
     private HashTable local_words = new HashTable();
+    private ExtendableHashTable local_words_eht = new ExtendableHashTable();
     private double similarityScore = 0;
     static TFIDFCalculator tfidfCalc = new TFIDFCalculator();
 
@@ -33,6 +36,12 @@ public class PageProperties {
         return local_words;
     }
     public double getSimilarityScore() {return similarityScore;}
+    public void setLocal_words_eht(ExtendableHashTable local_words_eht) {
+        this.local_words_eht = local_words_eht;
+    }
+    public ExtendableHashTable getLocal_words_eht() {
+        return local_words_eht;
+    }
 
     public void setSimilarityScore(double similarityScore) {
         this.similarityScore = similarityScore;

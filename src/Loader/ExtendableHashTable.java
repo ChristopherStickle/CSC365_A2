@@ -50,27 +50,6 @@ public class ExtendableHashTable implements Serializable {
             dir[0] = new Bucket();
             dir[1] = new Bucket();
     }
-    /*void writeObject(ObjectOutputStream s) throws IOException {
-        s.defaultWriteObject();
-        s.writeInt(dir.length);
-        *//*for (int i = 0; i < dir.length; ++i) {
-            s.writeInt(dir[i].entries.size());
-            for (Entry e : dir[i].entries) {
-                s.writeObject(e.key);
-            }
-        }*//*
-        for ( int i = 0; i < dir.length; ++i) {
-            s.writeObject(dir[i]);
-        }
-    }
-
-     void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
-        s.defaultReadObject();
-        int n = s.readInt();
-        *//*for (int i = 0; i < n; ++i) {
-            add((String) s.readObject());
-        }*//*
-     }*/
 
     public int getCount(String key) {
         int h = ( key.hashCode() & 0xfffffff );
