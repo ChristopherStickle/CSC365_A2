@@ -6,45 +6,34 @@ import java.util.ArrayList;
 
 public class PageProperties {
 
-    private String url;
-    private String[] parsed_words;
+    private String name;
     private HashTable local_words = new HashTable();
     private ExtendableHashTable local_words_eht = new ExtendableHashTable();
-    private double similarityScore = 0;
     static TFIDFCalculator tfidfCalc = new TFIDFCalculator();
 
-    public PageProperties(String url, String[] parsed_words){
+    public PageProperties(String name, ExtendableHashTable local_words_eht) {
 
-        this.url=url;
-        this.parsed_words=parsed_words;
-
-        //foreach entry in the word[] add it to a Application.HashTable
-        for (String word : parsed_words) {
-            local_words.add(word);
-        }
-
+        this.name=name;
+        this.local_words_eht=local_words_eht;
 
     }
+    public PageProperties(String name, HashTable local_words) {
 
-    public String getUrl() {
-        return url;
+        this.name=name;
+        this.local_words=local_words;
     }
-    public String[] getParsed_words() {
-        return parsed_words;
+
+    public String getName() {
+        return name;
     }
     public HashTable getLocal_words() {
         return local_words;
     }
-    public double getSimilarityScore() {return similarityScore;}
     public void setLocal_words_eht(ExtendableHashTable local_words_eht) {
         this.local_words_eht = local_words_eht;
     }
     public ExtendableHashTable getLocal_words_eht() {
         return local_words_eht;
-    }
-
-    public void setSimilarityScore(double similarityScore) {
-        this.similarityScore = similarityScore;
     }
 
     static void setScores(ArrayList<PageProperties> pageList, ArrayList<String> global_dictionary){
@@ -64,32 +53,5 @@ public class PageProperties {
                 }
             }
         }
-    }
-    static void setTFIDFScores(ArrayList<PageProperties> pageList, String[] userIn){
-        // for each word in userIn, for each page in page list, check if the word exists in the Application.HashTable, if so
-        //      get the words tfidf score and add it to that page's simScore
-        for(String word : userIn){
-            for( PageProperties page : pageList){
-                if ( page.getLocal_words().contains(word) )
-                    page.similarityScore += page.getLocal_words().getScore(word);
-            }
-        }
-        // Echo-Check
-        /*for(Application.PageProperties page : pageList){
-            System.out.println(page.similarityScore);
-        }*/
-
-    }
-    static PageProperties[] getMaxSimScores(ArrayList<PageProperties> pageList){
-        PageProperties[] suggestions = new PageProperties[3];
-        for( PageProperties page : pageList){
-            if ( suggestions[0]==null) suggestions[0]=page;
-            else if (page.getSimilarityScore() > suggestions[0].getSimilarityScore() ) suggestions[0]=page;
-            else if ( suggestions[1]==null) suggestions[1]=page;
-            else if (page.getSimilarityScore() > suggestions[1].getSimilarityScore() ) suggestions[1]=page;
-            else if ( suggestions[2]==null) suggestions[2]=page;
-            else if (page.getSimilarityScore() > suggestions[2].getSimilarityScore() ) suggestions[2]=page;
-        }
-        return suggestions;
     }
 }

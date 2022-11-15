@@ -1,5 +1,7 @@
 package Loader;
 
+import Application.PageProperties;
+
 import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -56,8 +58,24 @@ public class Main {
             System.out.println("Done with ["+ linksArray.indexOf(url) + "] " + url);
         }*/
 
-
-
+        // Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
+        // Add the PageProperties object to an ArrayList
+        ArrayList<PageProperties> pageList = new ArrayList<>();
+        File dir = new File("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\EHTfiles");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                //System.out.println(child.getName());
+                ExtendableHashTable EHT = new ExtendableHashTable();
+                PageProperties page = new PageProperties(child.getName(), EHT);
+                FileInputStream fis = new FileInputStream("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\EHTfiles\\"+child.getName());
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                page.setLocal_words_eht((ExtendableHashTable) ois.readObject());
+                pageList.add(page);
+            }
+        } else {
+            // throw an exception
+        }
 
 
 
