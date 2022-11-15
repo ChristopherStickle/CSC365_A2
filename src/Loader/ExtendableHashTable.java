@@ -1,9 +1,13 @@
 package Loader;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 
-public class ExtendableHashTable {
-    private static class Entry {
+public class ExtendableHashTable implements Serializable {
+    private static class Entry implements Serializable {
         String key;
         int count;
         double tfidfScore;
@@ -15,7 +19,7 @@ public class ExtendableHashTable {
         }
     }
 
-    private static class Bucket {
+    private static class Bucket implements Serializable {
         ArrayList<Entry> entries;
         final static int DEFAULT_SIZE = 8;
         int local_depth = 1;
@@ -39,12 +43,34 @@ public class ExtendableHashTable {
 
     private int global_depth;
     private Bucket[] dir;
+    //private int size = 2; // number of buckets in the table
     public ExtendableHashTable() {
         dir = new Bucket[(int) Math.pow(2, 1)];
         this.global_depth = 1;
             dir[0] = new Bucket();
             dir[1] = new Bucket();
     }
+    /*void writeObject(ObjectOutputStream s) throws IOException {
+        s.defaultWriteObject();
+        s.writeInt(dir.length);
+        *//*for (int i = 0; i < dir.length; ++i) {
+            s.writeInt(dir[i].entries.size());
+            for (Entry e : dir[i].entries) {
+                s.writeObject(e.key);
+            }
+        }*//*
+        for ( int i = 0; i < dir.length; ++i) {
+            s.writeObject(dir[i]);
+        }
+    }
+
+     void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
+        s.defaultReadObject();
+        int n = s.readInt();
+        *//*for (int i = 0; i < n; ++i) {
+            add((String) s.readObject());
+        }*//*
+     }*/
 
     public int getCount(String key) {
         int h = ( key.hashCode() & 0xfffffff );
@@ -114,6 +140,7 @@ public class ExtendableHashTable {
         else if (dir[i].isFull() && dir[i].local_depth < global_depth) {
             dir[i].incLocal_depth();
             Bucket newBucket = new Bucket();
+            //++size;
             newBucket.setLocal_depth(dir[i].local_depth);
             // Make a copy of the entries of the original bucket
             //   We'll use this for rehashing later

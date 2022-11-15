@@ -49,10 +49,12 @@ public class WebScraper {
             e.printStackTrace();
         }
         try {
-            FileWriter myWriter = new FileWriter("sub_links.txt");
+            FileWriter myWriter = new FileWriter("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\Loader\\seeAlsoLinks.txt");
+            //clear the file
+            myWriter.write("");
             for (String link : sub_links) {
-                myWriter.write(link + "\r\n");
-                System.out.println(link);
+                myWriter.write(link + "\n");
+                System.out.println("wrote :"+ link );
             }
             myWriter.close();
             //System.out.println("Successfully wrote to the file.");
