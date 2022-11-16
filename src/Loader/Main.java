@@ -11,7 +11,7 @@ public class Main {
           * This is the main method that is used to run the Loader.
           *
           **/
-
+        ArrayList<String> global_dictionary = new ArrayList<>(); //A list of all the unique words encountered across all URLs
         WebScraper ws = new WebScraper();
         Scanner sc;
 
@@ -36,7 +36,7 @@ public class Main {
         /**
           * DONE
           **/
-        /*sc = new Scanner(new File("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\Loader\\seeAlsoLinks.txt"));
+        sc = new Scanner(new File("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\Loader\\seeAlsoLinks.txt"));
 
         ArrayList<String> linksArray = new ArrayList<>();
 
@@ -51,10 +51,14 @@ public class Main {
             ExtendableHashTable eht = new ExtendableHashTable();
             for (String word:words) {
                 eht.add(word);
+                if ( !global_dictionary.contains(word) ) { global_dictionary.add(word); }
             }
             oos.writeObject(eht);
             System.out.println("Done with ["+ linksArray.indexOf(url) + "] " + url);
-        }*/
+        }
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\corpus");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(global_dictionary);
 
         // Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
         // Add the PageProperties object to an ArrayList
@@ -81,17 +85,18 @@ public class Main {
          * Clustering
          */
 
-        //instatiate a new clusterer
+        //instantiate a new clusterer
         Clusterer clusterer = new Clusterer( pageList, allUniqueWords);
 
-        //have the clusterer initilize its clusters
+        //have the clusterer initialize its clusters
         clusterer.instatiateClusters();
 
-        //do the cluster algorithmn 5 times
+        //do the cluster algorithm 5 times
         for(int i = 0; i < 6; i++){
             clusterer.swapClusters();
             clusterer.recenterClusters();
         }
+
 
 
 
