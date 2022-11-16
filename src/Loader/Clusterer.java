@@ -34,8 +34,8 @@ public class Clusterer {
     public double findCosSim(PageProperties pageA, PageProperties pageB){
         //variables to play with
         double numerator = 0; double magnitudeA = 0; double magnitudeB = 0;
-        ExtendableHashTable pageAHT = pageA.getLocal_words();
-        ExtendableHashTable pageBHT = pageB.getLocal_words();
+        ExtendableHashTable pageAHT = pageA.getLocal_words_eht();
+        ExtendableHashTable pageBHT = pageB.getLocal_words_eht();
         //get entire numerator, and magnitudes
         for(String s: allUniqueWords){
             //collect magnitudeA
