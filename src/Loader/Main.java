@@ -75,7 +75,23 @@ public class Main {
             // throw an exception
         }
 
+        ArrayList<String> allUniqueWords = new ArrayList<>(); // this is empty for now, but theoretically
+        // should be a list of all unique words
+        /*
+         * Clustering
+         */
 
+        //instatiate a new clusterer
+        Clusterer clusterer = new Clusterer( pageList, allUniqueWords);
+
+        //have the clusterer initilize its clusters
+        clusterer.instatiateClusters();
+
+        //do the cluster algorithmn 5 times
+        for(int i = 0; i < 6; i++){
+            clusterer.swapClusters();
+            clusterer.recenterClusters();
+        }
 
 
 

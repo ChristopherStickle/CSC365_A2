@@ -1,6 +1,7 @@
 package Loader;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Clusterer {
     //all of its clusters
@@ -59,4 +60,69 @@ public class Clusterer {
         //calculate and return cosSim
         return ( numerator / magnitudeA * magnitudeB );
     }
-}
+    public void swapClusters(){
+        //for every cluster we have
+        for(Cluster c : clusterArrayList) {
+            // for every page in the list
+            for (PageProperties p : c.getClusterList()) {
+                //each item in that cluster needs to see if another medoid fits better.
+                for (Cluster cOther : clusterArrayList) {
+                    //calculate distance to current medoid and other medoid
+                    double currentDistance = findCosSim(p, c.getMedoid());
+                    double newdistance = findCosSim(p, cOther.getMedoid());
+
+                    //when the current distance is greater than new distance
+                    if(currentDistance > newdistance){
+                        //remove the Page from this cluster and add to the new cluster
+                        c.getClusterList().remove(p);
+                        cOther.getClusterList().add(p);
+                    }
+                }
+            }
+        }
+
+    }
+    public void recenterClusters(){
+        // for every cluster in cluster
+        for(Cluster c : clusterArrayList){
+            //calculate current medoid score
+            double currentSum = 0;
+            for(PageProperties p : c.getClusterList()){
+                currentSum = currentSum + findCosSim(p,c.getMedoid());
+            }
+            ////randomly reassign medoid
+            //choose random page as new medoid
+            Random random = new Random(c.getClusterList().size() -1 );
+            int randomNumber = random.nextInt(c.getClusterList().size() - 1 );
+            PageProperties tempMedoid = c.getClusterList().get(randomNumber);
+
+            //create temp cluster list and remove current Medoid
+            ArrayList<PageProperties> tempClusterList = c.getClusterList();
+            tempClusterList.remove(tempMedoid);
+
+            //recalc w/ new medoid
+            double newSum = 0;
+            for(PageProperties p : tempClusterList){
+                newSum = newSum + findCosSim(p, tempMedoid);
+            }
+            //if new medoid score is better swap
+            if(newSum < currentSum){
+                c.reassignClusterList(tempClusterList);
+                c.reassignMedoid(tempMedoid);
+            }
+        }
+    }
+
+    public void instatiateClusters(){
+        Random random = new Random();
+        //for every page we have, assign it to a random cluster
+        for(PageProperties p : allPages){
+            //choose a random list to put it in.
+            Cluster c = clusterArrayList.get(random.nextInt(10));
+            if (c.getMedoid() != p ){
+                c.getClusterList().add(p);
+            }
+        }
+    }
+
+    }
