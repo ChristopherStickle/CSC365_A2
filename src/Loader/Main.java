@@ -16,11 +16,12 @@ public class Main {
         WebScraper ws = new WebScraper();
         Scanner sc;
 
-        // Loop through all the links in seed_links.txt and load "see also" links into seeAlsoLinks.txt
-        /**
+        /** Loop through all the links in seed_links.txt and load "see also" links into seeAlsoLinks.txt
+          *
+          * DO NOT RUN THIS AGAIN, Links are trimmed down to 99 good urls.
           * DONE
-          **/
-        /*WebScraper ws = new WebScraper();
+          *
+        WebScraper ws = new WebScraper();
         Scanner sc = new Scanner(new File("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\Loader\\seed_links.txt"));
         ArrayList<String> seed_links = new ArrayList<>();
         while (sc.hasNextLine()) {
@@ -28,15 +29,15 @@ public class Main {
         }
         for (String url:seed_links) {
             ws.writeSubLinks(url);
-        }*/
+        }
+         **/
 
-
-
-        // parse each in url seeAlsoLinks, load into an Extendable HashTable, write the Extendable HashTable to a file, one for each table
+//------------------------------------------------------------------------------------------------------------------------------------------------------
         /**
+          * parse each in url seeAlsoLinks, load into an Extendable HashTable, write the Extendable HashTable to a file, one for each table
+          *
           * DONE
           **/
-
         /*
         sc = new Scanner(new File("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\Loader\\seeAlsoLinks.txt"));
 
@@ -63,7 +64,7 @@ public class Main {
         oos.writeObject(global_dictionary);
 
         */
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------
         // Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
         // Add the PageProperties object to an ArrayList
         ArrayList<PageProperties> pageList = new ArrayList<>();
@@ -139,6 +140,7 @@ public class Main {
                 System.out.println(cluster);
             }
         }
+//------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
         // test ExtendableHashTable ----------------------------------------------------------------------------
