@@ -1,8 +1,9 @@
 package Loader;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Corpus {
+public class Corpus implements Serializable {
     int total_number_of_words = 0;
     ArrayList<String> global_dictionary = new ArrayList<>();
     ExtendableHashTable global_dictionary_eht = new ExtendableHashTable();

@@ -18,7 +18,7 @@ public class WebScraper {
             Document doc = Jsoup.connect(url).get();
             doc = new Cleaner(Safelist.basic()).clean(doc);
             String[] words = doc
-                    .body()
+                    .select("div.mw-parser-output > p")
                     .text()
                     .replaceAll("[^a-zA-Z0-9]"," ")
                     .toLowerCase()

@@ -1,3 +1,11 @@
+https://en.wikipedia.org/wiki/Engineering
+https://en.wikipedia.org/wiki/Modern_art
+https://en.wikipedia.org/wiki/Metallurgy
+https://en.wikipedia.org/wiki/Architecture
+https://en.wikipedia.org/wiki/Astronomy
+https://en.wikipedia.org/wiki/Computing
+https://en.wikipedia.org/wiki/Education
+https://en.wikipedia.org/wiki/Cuisine
 https://en.wikipedia.org/wiki/Design
 https://en.wikipedia.org/wiki/Earthquake_engineering
 https://en.wikipedia.org/wiki/Ecotechnology
@@ -18,10 +26,8 @@ https://en.wikipedia.org/wiki/Structural_failure
 https://en.wikipedia.org/wiki/Sustainable_engineering
 https://en.wikipedia.org/wiki/Technology
 https://en.wikipedia.org/wiki/Women_in_engineering
-https://en.wikipedia.org/wiki/Guayaquil
 https://en.wikipedia.org/wiki/La_Capilla_del_Hombre
 https://en.wikipedia.org/wiki/Quito
-https://en.wikipedia.org/wiki/Espoo
 https://en.wikipedia.org/wiki/Kiasma
 https://en.wikipedia.org/wiki/Helsinki
 https://en.wikipedia.org/wiki/Documenta

@@ -2,9 +2,10 @@ package Loader;//This abstraction of a webpage will hold all relevant url conten
 
 import Loader.ExtendableHashTable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PageProperties {
+public class PageProperties implements Serializable {
 
     String name;
     ExtendableHashTable local_words_eht = new ExtendableHashTable();

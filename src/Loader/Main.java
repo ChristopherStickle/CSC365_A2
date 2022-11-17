@@ -12,7 +12,6 @@ public class Main {
           *
           **/
 
-        ArrayList<String> global_dictionary = new ArrayList<>(); //A list of all the unique words encountered across all URLs
         Corpus corpus = new Corpus();
         WebScraper ws = new WebScraper();
         Scanner sc;
@@ -37,6 +36,7 @@ public class Main {
         /**
           * parse each in url seeAlsoLinks, load into an Extendable HashTable, write the Extendable HashTable to a file, one for each table
           * Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
+          *
           * DONE
           **/
         sc = new Scanner(new File("src/Loader/seeAlsoLinks.txt"));
@@ -44,6 +44,7 @@ public class Main {
         ArrayList<String> linksArray = new ArrayList<>();
         ArrayList<PageProperties> pageList = new ArrayList<>();
         ExtendableHashTable corpus_eht = new ExtendableHashTable();
+        ArrayList<String> global_dictionary = new ArrayList<>();
 
         while (sc.hasNextLine()) {
             linksArray.add(sc.nextLine());
@@ -76,9 +77,16 @@ public class Main {
         corpus.setGlobal_dictionary(global_dictionary);
         corpus.setEHT(corpus_eht);
 
-        /*FileOutputStream fos = new FileOutputStream("src/corpus");
+        // write pages to files
+        for(PageProperties page:pageList){
+            FileOutputStream fos = new FileOutputStream("src/PageFiles/"+page.getName());
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(page);
+        }
+        //write corpus to files
+        FileOutputStream fos = new FileOutputStream("src/corpus");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(global_dictionary);*/
+        oos.writeObject(corpus);
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
         /*// Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
@@ -103,6 +111,29 @@ public class Main {
         ObjectInputStream ois = new ObjectInputStream(fil);
         global_dictionary = (ArrayList<String>) ois.readObject();*/
 //------------------------------------------------------------------------------------------------------------------------------------------------------
+        // import PageProperties objects from files
+        pageList = new ArrayList<>();
+        File dir = new File("src/PageFiles");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                //System.out.println(child.getName());
+                PageProperties page;
+                FileInputStream fis = new FileInputStream("src/PageFiles/"+child.getName());
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                page = (PageProperties) ois.readObject();
+                pageList.add(page);
+            }
+        } else {
+            // throw an exception
+            System.out.println("Error: No PageFiles directory found");
+        }
+        // import Corpus object from file
+        FileInputStream fil = new FileInputStream("src/corpus");
+        ObjectInputStream ois = new ObjectInputStream(fil);
+        corpus = (Corpus) ois.readObject();
+
+
         //assign all the tdidf scores in the hashtables
 
 
