@@ -8,26 +8,25 @@ public class PageProperties {
 
     String name;
     ExtendableHashTable local_words_eht = new ExtendableHashTable();
-    static TFIDFCalculator tfidfCalc = new TFIDFCalculator();
+    String[] parsed_words;
 
-    public PageProperties(String name, ExtendableHashTable local_words_eht) {
-
+    public PageProperties(String name) {
         this.name=name;
-        this.local_words_eht=local_words_eht;
-
     }
 
     public String getName() {
         return name;
     }
-    public void setLocal_words_eht(ExtendableHashTable local_words_eht) {
+    public void setEHT(ExtendableHashTable local_words_eht) {
         this.local_words_eht = local_words_eht;
     }
-    public ExtendableHashTable getLocal_words_eht() {
+    public ExtendableHashTable getEHT() {
         return local_words_eht;
     }
-
-    public String toString(){
-        return name;
+    public String[] getParsed_words() {
+        return parsed_words;
+    }
+    public void setParsed_words(String[] parsed_words) {
+        this.parsed_words = parsed_words;
     }
 }

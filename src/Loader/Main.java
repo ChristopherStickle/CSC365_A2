@@ -13,14 +13,16 @@ public class Main {
           **/
 
         ArrayList<String> global_dictionary = new ArrayList<>(); //A list of all the unique words encountered across all URLs
+        Corpus corpus = new Corpus();
         WebScraper ws = new WebScraper();
         Scanner sc;
 
-        // Loop through all the links in seed_links.txt and load "see also" links into seeAlsoLinks.txt
-        /**
+        /** Loop through all the links in seed_links.txt and load "see also" links into seeAlsoLinks.txt
+          *
+          * DO NOT RUN THIS AGAIN, Links are trimmed down to 99 good urls.
           * DONE
-          **/
-        /*WebScraper ws = new WebScraper();
+          *
+        WebScraper ws = new WebScraper();
         Scanner sc = new Scanner(new File("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\Loader\\seed_links.txt"));
         ArrayList<String> seed_links = new ArrayList<>();
         while (sc.hasNextLine()) {
@@ -28,45 +30,59 @@ public class Main {
         }
         for (String url:seed_links) {
             ws.writeSubLinks(url);
-        }*/
+        }
+         **/
 
-
-
-        // parse each in url seeAlsoLinks, load into an Extendable HashTable, write the Extendable HashTable to a file, one for each table
+//------------------------------------------------------------------------------------------------------------------------------------------------------
         /**
+          * parse each in url seeAlsoLinks, load into an Extendable HashTable, write the Extendable HashTable to a file, one for each table
+          * Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
           * DONE
           **/
-
-        /*
-        sc = new Scanner(new File("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\Loader\\seeAlsoLinks.txt"));
+        sc = new Scanner(new File("src/Loader/seeAlsoLinks.txt"));
 
         ArrayList<String> linksArray = new ArrayList<>();
+        ArrayList<PageProperties> pageList = new ArrayList<>();
+        ExtendableHashTable corpus_eht = new ExtendableHashTable();
 
         while (sc.hasNextLine()) {
             linksArray.add(sc.nextLine());
         }
 
         for (String url:linksArray) {
-            FileOutputStream fos = new FileOutputStream("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\EHTfiles\\"+url.substring(30));
+            PageProperties page = new PageProperties(url.substring(30));
+
+            FileOutputStream fos = new FileOutputStream("src/EHTfiles/"+url.substring(30));
             ObjectOutputStream oos = new ObjectOutputStream(fos);
+
             String[] words = ws.scrape(url);
+            page.setParsed_words(words);
+            corpus.addToWordCount(words.length);
             ExtendableHashTable eht = new ExtendableHashTable();
+
             for (String word:words) {
                 eht.add(word);
+                corpus_eht.add(word);
                 if ( !global_dictionary.contains(word) ) { global_dictionary.add(word); }
             }
             oos.writeObject(eht);
+
+            page.setEHT(eht);
+            pageList.add(page);
+
             System.out.println("Done with ["+ linksArray.indexOf(url) + "] " + url);
+
         }
-        FileOutputStream fos = new FileOutputStream("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\corpus");
+        corpus.setGlobal_dictionary(global_dictionary);
+        corpus.setEHT(corpus_eht);
+
+        /*FileOutputStream fos = new FileOutputStream("src/corpus");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(global_dictionary);
+        oos.writeObject(global_dictionary);*/
 
-        */
-
-        // Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
+//------------------------------------------------------------------------------------------------------------------------------------------------------
+        /*// Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
         // Add the PageProperties object to an ArrayList
-        ArrayList<PageProperties> pageList = new ArrayList<>();
         File dir = new File("src/EHTfiles");
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
@@ -84,8 +100,8 @@ public class Main {
         }
         FileInputStream fil = new FileInputStream("src/corpus");
         ObjectInputStream ois = new ObjectInputStream(fil);
-        global_dictionary = (ArrayList<String>) ois.readObject();
-
+        global_dictionary = (ArrayList<String>) ois.readObject();*/
+//------------------------------------------------------------------------------------------------------------------------------------------------------
         //assign all the tdidf scores in the hashtables
 
 
@@ -108,13 +124,13 @@ public class Main {
         PageProperties page1 = pageList.get(0); System.out.println("Page1: "+ page1);
         PageProperties page2 = pageList.get(1); System.out.println("Page2: "+ page2);
 
-        System.out.println("tfidf score of the in page1: " + page1.getLocal_words_eht().getScore("the"));
-        System.out.println("tfidf score of rousseau in page2: " + page2.getLocal_words_eht().getScore("rousseau"));
+        System.out.println("tfidf score of the in page1: " + page1.getEHT().getScore("the"));
+        System.out.println("tfidf score of rousseau in page2: " + page2.getEHT().getScore("rousseau"));
 
-        if (page1.getLocal_words_eht().contains("the"))
+        if (page1.getEHT().contains("the"))
             System.out.println("Page1 has the. ");
 
-        if (page2.getLocal_words_eht().contains("the"))
+        if (page2.getEHT().contains("the"))
             System.out.println("Page2 has the. ");
 
         if(global_dictionary.contains("the"))
@@ -139,6 +155,7 @@ public class Main {
                 System.out.println(cluster);
             }
         }
+//------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
         // test ExtendableHashTable ----------------------------------------------------------------------------
