@@ -1,13 +1,37 @@
 package Loader;
 
-import Application.HashTable;
-
 import java.util.ArrayList;
 
 public class TFIDFCalculator {
 
-    private static final double DOC_COUNT = 10;
+//    private static final double DOC_COUNT = 100;
+//    Corpus corpus;
+    ArrayList<PageProperties> allPages;
+    ArrayList<String> globalDictionary;
 
+
+    /*
+    public TFIDFCalculator(ArrayList<PageProperties> allPages, ArrayList<String> globalDictionary, Corpus corpus){
+        this.allPages = allPages;
+        this.globalDictionary = globalDictionary;
+        this.corpus = corpus;
+    }
+
+    public void setAlltfidfScores(){
+        for(PageProperties page : allPages ){ // for every page we have
+            for(String key : globalDictionary){ // for every word in the dictionary
+                if( page.getLocal_words_eht().contains(key)){ // if the page contained that word
+                    double docCount = page.getLocal_words().getCount(key); //count of the word from the page
+//                    double docLength = page.getParsedWords.legnth(); // total number of words from the page
+//                    double wordIDF = corpus.getIDF(key); //
+//                    double newScore = (docCount/docLength) * Math.log(wordIDF);
+//                    page.getLocal_words_eht().setScore(key, newScore);
+                }
+            }
+        }
+    }
+
+    /*
     public double tf(ExtendableHashTable doc, String word){
        // tf(t,d) = n/N
        //     n is the number of times term t appears in the document d.
@@ -32,5 +56,6 @@ public class TFIDFCalculator {
         // TFIDF(t,d,D) = tf(t,d) * idf(t,D)
         return Math.abs( tf( doc, word)*idf( doc_list, word) );
     }
+     */
 
 }

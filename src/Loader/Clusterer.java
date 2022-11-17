@@ -23,7 +23,7 @@ public class Clusterer {
         this.clusterArrayList = new ArrayList<>();
 
         //assign the clusters
-        intitiateMedoids();
+        instantiateMedoids();
 
         //add all clusters to an ArrayList to operate on later
         clusterArrayList.add(cluster0); clusterArrayList.add(cluster1); clusterArrayList.add(cluster2); clusterArrayList.add(cluster3);
@@ -146,8 +146,20 @@ public class Clusterer {
 
     */
 
-
-    private void intitiateMedoids() {
+    private void instantiateMedoids(){
+        cluster0 = new Cluster(allPages.get(0));
+        cluster1 = new Cluster(allPages.get(1));
+        cluster2 = new Cluster(allPages.get(2));
+        cluster3 = new Cluster(allPages.get(3));
+        cluster4 = new Cluster(allPages.get(4));
+        cluster5 = new Cluster(allPages.get(5));
+        cluster6 = new Cluster(allPages.get(6));
+        cluster7 = new Cluster(allPages.get(7));
+        cluster8 = new Cluster(allPages.get(8));
+        cluster9 = new Cluster(allPages.get(9));
+    }
+    /*
+    private void instantiateMedoids() {
         ArrayList<PageProperties> tempAllPages = allPages;
 
         Random random = new Random();
@@ -192,6 +204,8 @@ public class Clusterer {
         cluster9 = new Cluster(allPages.get(nextRand));
         tempAllPages.remove(allPages.get(nextRand));
     }
+     */
+
 
     public void instantiateClusters(){
         Random random = new Random();
