@@ -83,6 +83,7 @@ public class Main {
 //------------------------------------------------------------------------------------------------------------------------------------------------------
         /*// Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
         // Add the PageProperties object to an ArrayList
+        ArrayList<PageProperties> pageList = new ArrayList<>();
         File dir = new File("src/EHTfiles");
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
