@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class PageProperties {
 
-    private String name;
-    private ExtendableHashTable local_words_eht = new ExtendableHashTable();
+    String name;
+    ExtendableHashTable local_words_eht = new ExtendableHashTable();
     static TFIDFCalculator tfidfCalc = new TFIDFCalculator();
 
     public PageProperties(String name, ExtendableHashTable local_words_eht) {
@@ -27,4 +27,7 @@ public class PageProperties {
         return local_words_eht;
     }
 
+    public String toString(){
+        return name;
+    }
 }

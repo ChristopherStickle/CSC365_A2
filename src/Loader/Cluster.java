@@ -3,10 +3,10 @@ package Loader;
 import java.util.ArrayList;
 
 public class Cluster {
-    private PageProperties medoid;
-    private ArrayList<PageProperties> clusterList;
+    PageProperties medoid;
+    ArrayList<PageProperties> clusterList;
 
-    public Cluster(Loader.PageProperties medoid){
+    public Cluster(PageProperties medoid){
         this.medoid = medoid;
         this.clusterList = new ArrayList<PageProperties>();
     }
@@ -29,7 +29,7 @@ public class Cluster {
     }
 
     public String toString(){
-        return this.medoid.toString() + clusterList.toString();
+        return "Medoid: " + this.medoid.toString() + "\n and the List: " + clusterList.toString();
     }
 
     public void reassignClusterList(ArrayList<PageProperties> tempClusterList) {

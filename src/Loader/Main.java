@@ -11,10 +11,10 @@ public class Main {
           * This is the main method that is used to run the Loader.
           *
           **/
+
         ArrayList<String> global_dictionary = new ArrayList<>(); //A list of all the unique words encountered across all URLs
         WebScraper ws = new WebScraper();
         Scanner sc;
-
 
         // Loop through all the links in seed_links.txt and load "see also" links into seeAlsoLinks.txt
         /**
@@ -36,6 +36,8 @@ public class Main {
         /**
           * DONE
           **/
+
+        /*
         sc = new Scanner(new File("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\Loader\\seeAlsoLinks.txt"));
 
         ArrayList<String> linksArray = new ArrayList<>();
@@ -60,17 +62,19 @@ public class Main {
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(global_dictionary);
 
+        */
+
         // Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
         // Add the PageProperties object to an ArrayList
         ArrayList<PageProperties> pageList = new ArrayList<>();
-        File dir = new File("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\EHTfiles");
+        File dir = new File("src/EHTfiles");
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File child : directoryListing) {
                 //System.out.println(child.getName());
                 ExtendableHashTable EHT = new ExtendableHashTable();
                 PageProperties page = new PageProperties(child.getName(), EHT);
-                FileInputStream fis = new FileInputStream("C:\\Users\\stick\\IdeaProjects\\CSC365_A2\\src\\EHTfiles\\"+child.getName());
+                FileInputStream fis = new FileInputStream("src/EHTfiles/"+child.getName());
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 page.setLocal_words_eht((ExtendableHashTable) ois.readObject());
                 pageList.add(page);
@@ -78,27 +82,63 @@ public class Main {
         } else {
             // throw an exception
         }
+        FileInputStream fil = new FileInputStream("src/corpus");
+        ObjectInputStream ois = new ObjectInputStream(fil);
+        global_dictionary = (ArrayList<String>) ois.readObject();
 
-        ArrayList<String> allUniqueWords = new ArrayList<>(); // this is empty for now, but theoretically
-        // should be a list of all unique words
+        //assign all the tdidf scores in the hashtables
+
+
+
+        //System.out.println(globalDictionary);
+
+//        System.out.println(pageList.size());
+//        for( PageProperties p : pageList){
+//            System.out.println(p.getName());
+//        }
+
         /*
          * Clustering
          */
 
-        //instantiate a new clusterer
-        Clusterer clusterer = new Clusterer( pageList, allUniqueWords);
 
+        //instantiate a new clusterer
+        Clusterer clusterer = new Clusterer(pageList, global_dictionary);
+
+        PageProperties page1 = pageList.get(0); System.out.println("Page1: "+ page1);
+        PageProperties page2 = pageList.get(1); System.out.println("Page2: "+ page2);
+
+        System.out.println("tfidf score of the in page1: " + page1.getLocal_words_eht().getScore("the"));
+        System.out.println("tfidf score of rousseau in page2: " + page2.getLocal_words_eht().getScore("rousseau"));
+
+        if (page1.getLocal_words_eht().contains("the"))
+            System.out.println("Page1 has the. ");
+
+        if (page2.getLocal_words_eht().contains("the"))
+            System.out.println("Page2 has the. ");
+
+        if(global_dictionary.contains("the"))
+            System.out.println("dictionary has the");
+
+
+
+        double tester = clusterer.findCosSim(page1, page2);
+        System.out.println(tester);
+
+
+        /*
         //have the clusterer initialize its clusters
-        clusterer.instatiateClusters();
+        clusterer.instantiateClusters();
 
         //do the cluster algorithm 5 times
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < 5; i++){
             clusterer.swapClusters();
             clusterer.recenterClusters();
+            System.out.println("completed one iteration :)\n"); //System.out.println();
+            for( Cluster cluster : clusterer.clusterArrayList){
+                System.out.println(cluster);
+            }
         }
-
-
-
 
 
         // test ExtendableHashTable ----------------------------------------------------------------------------
