@@ -57,6 +57,7 @@ public class Main {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             String[] words = ws.scrape(url);
+
             page.setParsed_words(words);
             corpus.addToWordCount(words.length);
             ExtendableHashTable eht = new ExtendableHashTable();
@@ -76,6 +77,10 @@ public class Main {
         }
         corpus.setGlobal_dictionary(global_dictionary);
         corpus.setEHT(corpus_eht);
+
+        for(String s : global_dictionary){
+            System.out.println(s);
+        }
 
         // write pages to files
         for(PageProperties page:pageList){
@@ -145,10 +150,14 @@ public class Main {
 //            System.out.println(p.getName());
 //        }
 
+
         /*
          * Clustering
          */
 
+        TFIDFCalculator tfidfCalculator = new TFIDFCalculator( pageList, global_dictionary, corpus);
+        corpus.setTFIDFToIDF();
+        tfidfCalculator.setAlltfidfScores();
 
         //instantiate a new clusterer
         Clusterer clusterer = new Clusterer(pageList, global_dictionary);
@@ -170,11 +179,13 @@ public class Main {
 
 
 
+
+
         double tester = clusterer.findCosSim(page1, page2);
         System.out.println(tester);
 
 
-        /*
+
         //have the clusterer initialize its clusters
         clusterer.instantiateClusters();
 
@@ -184,9 +195,10 @@ public class Main {
             clusterer.recenterClusters();
             System.out.println("completed one iteration :)\n"); //System.out.println();
             for( Cluster cluster : clusterer.clusterArrayList){
-                System.out.println(cluster);
+//                System.out.println(cluster);
             }
         }
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

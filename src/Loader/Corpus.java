@@ -9,6 +9,15 @@ public class Corpus implements Serializable {
     ExtendableHashTable global_dictionary_eht = new ExtendableHashTable();
 
 
+    public void setTFIDFToIDF(){
+        for( String s : global_dictionary ){ //for every unique word
+            double countOfWord = global_dictionary_eht.getCount(s); //get global count
+            double idfScore = 100 / countOfWord; // divide that by number of documents
+            global_dictionary_eht.setScore(s, idfScore); // set tfidf score
+            System.out.println( "Key: " + s + " | Score: " + global_dictionary_eht.getScore(s));
+        }
+    }
+
     public int getWordCount() {
         return total_number_of_words;
     }

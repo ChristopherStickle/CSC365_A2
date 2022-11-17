@@ -1,10 +1,10 @@
 https://en.wikipedia.org/wiki/Engineering
+https://en.wikipedia.org/wiki/Conceptual_art
 https://en.wikipedia.org/wiki/Modern_art
 https://en.wikipedia.org/wiki/Metallurgy
 https://en.wikipedia.org/wiki/Architecture
 https://en.wikipedia.org/wiki/Astronomy
 https://en.wikipedia.org/wiki/Computing
-https://en.wikipedia.org/wiki/Education
 https://en.wikipedia.org/wiki/Cuisine
 https://en.wikipedia.org/wiki/Design
 https://en.wikipedia.org/wiki/Earthquake_engineering
@@ -37,8 +37,6 @@ https://en.wikipedia.org/wiki/Pinakothek_der_Moderne
 https://en.wikipedia.org/wiki/Palazzo_delle_Esposizioni
 https://en.wikipedia.org/wiki/Stedelijk_Museum
 https://en.wikipedia.org/wiki/Hermitage_Museum
-https://en.wikipedia.org/wiki/Saint_Petersburg
-https://en.wikipedia.org/wiki/Pushkin_Museum
 https://en.wikipedia.org/wiki/Thyssen-Bornemisza_Museum
 https://en.wikipedia.org/wiki/Las_Palmas
 https://en.wikipedia.org/wiki/Museu_Picasso
@@ -51,12 +49,10 @@ https://en.wikipedia.org/wiki/20th_century_art
 https://en.wikipedia.org/wiki/Art_manifesto
 https://en.wikipedia.org/wiki/Art_movements
 https://en.wikipedia.org/wiki/Art_periods
-https://en.wikipedia.org/wiki/Conceptual_art
 https://en.wikipedia.org/wiki/Contemporary_art
 https://en.wikipedia.org/wiki/Gesamtkunstwerk
 https://en.wikipedia.org/wiki/History_of_painting
 https://en.wikipedia.org/wiki/Modern_architecture
-https://en.wikipedia.org/wiki/Modernism
 https://en.wikipedia.org/wiki/Postmodern_art
 https://en.wikipedia.org/wiki/Western_painting
 https://en.wikipedia.org/wiki/Adrien_Chenot

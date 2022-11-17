@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class TFIDFCalculator {
 
 //    private static final double DOC_COUNT = 100;
-//    Corpus corpus;
+    Corpus corpus;
     ArrayList<PageProperties> allPages;
     ArrayList<String> globalDictionary;
 
 
-    /*
+
     public TFIDFCalculator(ArrayList<PageProperties> allPages, ArrayList<String> globalDictionary, Corpus corpus){
         this.allPages = allPages;
         this.globalDictionary = globalDictionary;
@@ -20,12 +20,13 @@ public class TFIDFCalculator {
     public void setAlltfidfScores(){
         for(PageProperties page : allPages ){ // for every page we have
             for(String key : globalDictionary){ // for every word in the dictionary
-                if( page.getLocal_words_eht().contains(key)){ // if the page contained that word
-                    double docCount = page.getLocal_words().getCount(key); //count of the word from the page
-//                    double docLength = page.getParsedWords.legnth(); // total number of words from the page
-//                    double wordIDF = corpus.getIDF(key); //
-//                    double newScore = (docCount/docLength) * Math.log(wordIDF);
-//                    page.getLocal_words_eht().setScore(key, newScore);
+                if( page.getEHT().contains(key)){ // if the page contained that word
+                    double docCount = page.getEHT().getCount(key); //count of the word from the page
+                    double docLength = page.getParsed_words().length; // total number of words from the page
+                    double wordIDF = corpus.getEHT().getScore(key); //
+                    double newScore = (docCount/docLength) * Math.log(wordIDF);
+                    page.getEHT().setScore(key, newScore);
+                    System.out.println();
                 }
             }
         }

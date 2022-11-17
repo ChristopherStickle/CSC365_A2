@@ -40,7 +40,7 @@ public class Clusterer {
         for(String s: allUniqueWords){
             //collect magnitudeA
             if(pageA.local_words_eht.contains(s)){
-                System.out.println("Key: " + s + " | tfidf score: " + pageA.local_words_eht.getScore(s) + " | ");
+//                System.out.println("Key: " + s + " | tfidf score: " + pageA.local_words_eht.getScore(s) + " | ");
                 magnitudeA = magnitudeA + (pageA.local_words_eht.getScore(s) * pageA.local_words_eht.getScore(s));
 
             }
@@ -68,17 +68,20 @@ public class Clusterer {
         for(Cluster c : clusterArrayList) {
             // for every page in the list
             for (PageProperties p : c.getClusterList()) {
+                //if p is not the medoid we CANNOT Swap medoid
+                if(p != c.medoid){
                 //each item in that cluster needs to see if another medoid fits better.
-                for (Cluster cOther : clusterArrayList) {
-                    //calculate distance to current medoid and other medoid
-                    double currentDistance = findCosSim(p, c.getMedoid());
-                    double newdistance = findCosSim(p, cOther.getMedoid());
+                    for (Cluster cOther : clusterArrayList) {
+                        //calculate distance to current medoid and other medoid
+                        double currentDistance = findCosSim(p, c.getMedoid());
+                        double newdistance = findCosSim(p, cOther.getMedoid());
 
-                    //when the current distance is greater than new distance
-                    if(currentDistance > newdistance){
-                        //remove the Page from this cluster and add to the new cluster
-                        c.getClusterList().remove(p);
-                        cOther.getClusterList().add(p);
+                        //when the current distance is greater than new distance
+                        if(currentDistance > newdistance){
+                            //remove the Page from this cluster and add to the new cluster
+                             c.getClusterList().remove(p);
+                            cOther.getClusterList().add(p);
+                        }
                     }
                 }
             }
@@ -86,7 +89,26 @@ public class Clusterer {
 
     }
 
+    public void recenterClusters(){
+        for(Cluster c : clusterArrayList){
+            double currentSum = 0;
+            double newSum = 0;
+            for(PageProperties p : allPages){
+                currentSum = currentSum + findCosSim(c.medoid, p);
+            }
+            for(PageProperties p : c.clusterList){
+                for(PageProperties p1 : c.clusterList){
+                    newSum = newSum + findCosSim(p, p1);
+                }
+                if( newSum < currentSum ){
+                    currentSum = newSum;
+                    c.setMedoid(p);
+                }
+            }
+        }
+    }
 
+        /*
     public void recenterClusters() {
         // for every cluster in cluster
         for (Cluster c : clusterArrayList) {
@@ -114,14 +136,14 @@ public class Clusterer {
                 System.out.println("NewSum: " + newSum + " OldSum: " + currentSum + "\n");
                 //if new medoid score is better swap
                 if (newSum < currentSum) {
-                    c.reassignClusterList(tempClusterList);
-                    c.reassignMedoid(tempMedoid);
+                    c.setClusterList(tempClusterList);
+                    c.setMedoid(tempMedoid);
                     System.out.println("butter me up \n");
                 }
             }
         }
     }
-
+    */
 
     /*
     public void recenterClusters(){
@@ -135,10 +157,6 @@ public class Clusterer {
                 for (PageProperties p : c.clusterList) {
                     //decide if Page p is a better medoid than the current medoid
                     //do math need to make sure cosSim is actually working go test it dummy
-
-
-
-
                 }
             }
         }

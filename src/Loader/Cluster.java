@@ -29,14 +29,14 @@ public class Cluster {
     }
 
     public String toString(){
-        return "Medoid: " + this.medoid.toString() + "\n and the List: " + clusterList.toString();
+        return "Medoid: " + this.medoid.getName() + "\n and the List: " + clusterList.toString();
     }
 
-    public void reassignClusterList(ArrayList<PageProperties> tempClusterList) {
+    public void setClusterList(ArrayList<PageProperties> tempClusterList) {
         this.clusterList = tempClusterList;
     }
 
-    public void reassignMedoid(PageProperties tempMedoid) {
-        this.medoid = tempMedoid;
+    public void setMedoid(PageProperties newMedoid) {
+        this.medoid = newMedoid;
     }
 }

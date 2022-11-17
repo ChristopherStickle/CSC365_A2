@@ -16,13 +16,12 @@ public class WebScraper {
     public static String[] scrape(String url) throws IOException {
         try {
             Document doc = Jsoup.connect(url).get();
-            doc = new Cleaner(Safelist.basic()).clean(doc);
+//            doc = new Cleaner(Safelist.basic()).clean(doc);
             String[] words = doc
                     .select("div.mw-parser-output > p")
                     .text()
-                    .replaceAll("[^a-zA-Z0-9]"," ")
                     .toLowerCase()
-                    .split("\\s+");
+                    .split("[^a-zA-Z0-9]+");
             return words;
         } catch (IOException ex) {
             System.out.println("Connection Error, Please try again...");

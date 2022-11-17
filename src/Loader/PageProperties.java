@@ -30,4 +30,8 @@ public class PageProperties implements Serializable {
     public void setParsed_words(String[] parsed_words) {
         this.parsed_words = parsed_words;
     }
+
+    public String toString(){
+        return name;
+    }
 }
