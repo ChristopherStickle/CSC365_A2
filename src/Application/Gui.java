@@ -72,10 +72,30 @@ public class Gui extends JFrame {
                     }
                 }
 
+                Cluster userCluster = clusterer.clusterArrayList.get(indexBest);
+                userCluster.clusterList.add(userPage);
 
+                for(PageProperties p : userCluster.clusterList){
+                    TFIDFCalculator.setPagetfidfScore(p);
+                }
 
+                double bestCosSim2 = 0; int indexBest2 = 0;
+                for(PageProperties page : userCluster.clusterList){
+                    if( page != userPage){
+                        double newCosSim2 = clusterer.findCosSim(page, userPage);
+                        if(newCosSim2 > bestCosSim2){
+                            bestCosSim2 = newCosSim2;
+                            indexBest2 = userCluster.clusterList.indexOf(page);
+                        }
+                    }
+                }
 
+                PageProperties userBestMatch = userCluster.clusterList.get(indexBest2);
 
+                textArea1.setText("You entered " + userPage.toString() + ".\n" +
+                        "The closest match is " + userBestMatch.toString() + ".\n" +
+                        "It belong to the cluster " + userCluster.medoid.toString() +
+                        ", which also contains: \n" + userCluster.clusterList.toString());
 
 
 
