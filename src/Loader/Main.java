@@ -245,5 +245,6 @@ public class Main {
         for (String word : words) {
             System.out.println(word + " is in the table " + ehtREAD.contains(word) + " with count " + ehtREAD.getCount(word));
         }*/
+
     }
 }
