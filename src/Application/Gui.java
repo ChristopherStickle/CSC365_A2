@@ -46,6 +46,23 @@ public class Gui extends JFrame {
                 }
 
 
+                PageProperties userPage = new PageProperties(input_url.substring(30));
+
+
+                TFIDFCalculator.setPagetfidfScore(userPage); //set tfidf scores for the userpage
+                for(PageProperties m : clusterer.allMedoids){
+                    TFIDFCalculator.setPagetfidfScore(m);
+                }
+
+                double bestCosSim = 0; int indexBest = 0;
+                for(Cluster c : clusterer.clusterArrayList){
+                    double newCosSim = 0; clusterer.findCosSim(userPage, c.medoid);
+                    if(newCosSim > bestCosSim){
+                        bestCosSim = newCosSim;
+                        indexBest = clusterer.clusterArrayList.indexOf(c);
+                    }
+                }
+
 
 
 

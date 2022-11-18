@@ -39,7 +39,7 @@ public class TFIDFCalculator {
         }
     }
 
-    public void setPagetfidfScore(PageProperties page){
+    public static void setPagetfidfScore(PageProperties page){
         for(String key : globalDictionary) { // for every word in the dictionary
             if (page.getEHT().contains(key)) {
                 double docCount = page.getEHT().getCount(key); //count of the word from the page

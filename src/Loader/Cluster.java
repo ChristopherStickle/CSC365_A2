@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Cluster implements Serializable {
-    PageProperties medoid;
-    ArrayList<PageProperties> clusterList;
+    public PageProperties medoid;
+    public ArrayList<PageProperties> clusterList;
 
     public Cluster(PageProperties medoid){
         this.medoid = medoid;

@@ -11,10 +11,10 @@ public class Clusterer implements Serializable {
     private Cluster cluster8; private Cluster cluster9;
 
     //ArrayLists of clusters and PageProperties
-    ArrayList<Cluster> clusterArrayList;
-    ArrayList<PageProperties> allPages;
-    ArrayList<String> allUniqueWords;
-    ArrayList<PageProperties> allMedoids = new ArrayList<>();
+    public ArrayList<Cluster> clusterArrayList;
+    public ArrayList<PageProperties> allPages;
+    public ArrayList<String> allUniqueWords;
+    public ArrayList<PageProperties> allMedoids = new ArrayList<>();
     Random random = new Random(1);
 
     //constructor
