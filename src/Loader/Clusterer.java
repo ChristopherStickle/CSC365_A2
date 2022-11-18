@@ -1,9 +1,10 @@
 package Loader;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Clusterer {
+public class Clusterer implements Serializable {
     //all of its clusters
     private Cluster cluster0; private Cluster cluster1; private Cluster cluster2; private Cluster cluster3;
     private Cluster cluster4; private Cluster cluster5; private Cluster cluster6; private Cluster cluster7;
@@ -122,8 +123,8 @@ public class Clusterer {
 //                System.out.println("correct recenter");
                 c.setMedoid(c.clusterList.get(bestIndex)); // set the best as the new medoid and go to next cluster
             } else {
-                System.out.println("random recenter");
-//                c.setMedoid(c.clusterList.get(random.nextInt(c.clusterList.size())));
+//                System.out.println("random recenter");
+                c.setMedoid(c.clusterList.get(random.nextInt(c.clusterList.size())));
             }
         }
     }

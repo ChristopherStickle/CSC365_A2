@@ -1,9 +1,6 @@
 package Application;
 
-import Loader.Corpus;
-import Loader.ExtendableHashTable;
-import Loader.PageProperties;
-import Loader.WebScraper;
+import Loader.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.io.IOException;
 
@@ -22,7 +20,8 @@ public class Gui extends JFrame {
     private javax.swing.JPanel jpanel;
 
 
-    public Gui(Corpus corpus, ArrayList<PageProperties> pageList) {
+    public Gui(Corpus corpus, ArrayList<PageProperties> pageList, Clusterer clusterer) {
+
         setContentPane(jpanel);
         setTitle("Webpage Comparator");
         setSize(450,300);
@@ -98,7 +97,11 @@ public class Gui extends JFrame {
         ObjectInputStream ois = new ObjectInputStream(fil);
         corpus = (Corpus) ois.readObject();
 
+        fil = new FileInputStream("src/clusterer");
+        ois = new ObjectInputStream(fil);
+        Clusterer clusterer = (Clusterer) ois.readObject();
 
-        Gui myFrame = new Gui(corpus, pageList);
+
+        Gui myFrame = new Gui(corpus, pageList, clusterer);
     }
 }

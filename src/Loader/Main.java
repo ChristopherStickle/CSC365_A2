@@ -211,6 +211,10 @@ public class Main {
             System.out.println(cluster); // print out the clusters to look
         }
 
+        FileOutputStream fos = new FileOutputStream("src/clusterer");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(clusterer);
+
 
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------

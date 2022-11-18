@@ -1,8 +1,9 @@
 package Loader;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Cluster {
+public class Cluster implements Serializable {
     PageProperties medoid;
     ArrayList<PageProperties> clusterList;
 
