@@ -15,7 +15,7 @@ public class Main {
         Corpus corpus = new Corpus();
         WebScraper ws = new WebScraper();
         Scanner sc;
-        ArrayList<String> global_dictionary = new ArrayList<>();
+//        ArrayList<String> global_dictionary = new ArrayList<>();
         ArrayList<PageProperties> pageList = new ArrayList<>();
 
         /** Loop through all the links in seed_links.txt and load "see also" links into seeAlsoLinks.txt
@@ -157,15 +157,16 @@ public class Main {
          * Clustering
          */
 
-        TFIDFCalculator tfidfCalculator = new TFIDFCalculator( pageList, global_dictionary, corpus);
-        corpus.setTFIDFToIDF();
-        tfidfCalculator.setAlltfidfScores();
+        TFIDFCalculator tfidfCalculator = new TFIDFCalculator( pageList, corpus.global_dictionary, corpus); //create a new ifidf calc
+        corpus.setTFIDFToIDF(); //set all idf scores in the corpus
+        tfidfCalculator.setAlltfidfScores(); //set all tfidf scores in all hashtables
 
         //instantiate a new clusterer
-        Clusterer clusterer = new Clusterer(pageList, global_dictionary);
+        Clusterer clusterer = new Clusterer(pageList, corpus.global_dictionary);
 
-        PageProperties page1 = pageList.get(0); System.out.println("Page1: "+ page1);
-        PageProperties page2 = pageList.get(1); System.out.println("Page2: "+ page2);
+        /*
+        PageProperties page1 = pageList.get(6); System.out.println("Page1: "+ page1);
+        PageProperties page2 = pageList.get(7); System.out.println("Page2: "+ page2);
 
         System.out.println("tfidf score of the in page1: " + page1.getEHT().getScore("the"));
         System.out.println("tfidf score of rousseau in page2: " + page2.getEHT().getScore("rousseau"));
@@ -176,28 +177,40 @@ public class Main {
         if (page2.getEHT().contains("the"))
             System.out.println("Page2 has the. ");
 
-        if(global_dictionary.contains("the"))
+        if(corpus.global_dictionary.contains("the"))
             System.out.println("dictionary has the");
-
-
 
         double tester = clusterer.findCosSim(page1, page2);
         System.out.println(tester);
+         */
 
+        clusterer.instantiateClusters(); //have the clusterer initialize its clusters
+//        System.out.println("initial clusters");
+//        for( Cluster cluster : clusterer.clusterArrayList){
+//            System.out.println(cluster.medoid);
+//        }
+        System.out.println("Initial Clusters:");
+        for( Cluster cluster : clusterer.clusterArrayList) {
+            System.out.println(cluster); // print out the clusters to look
+        }
 
-        /*
-        //have the clusterer initialize its clusters
-        clusterer.instantiateClusters();
 
         //do the cluster algorithm 5 times
-        for(int i = 0; i < 5; i++){
-            clusterer.swapClusters();
-            clusterer.recenterClusters();
+        for(int i = 0; i < 10; i++){
+            clusterer.swapClusters(); // run a swap on all clusters
+            clusterer.recenterClusters(); // recenter all the clusters
             System.out.println("completed one iteration :)\n"); //System.out.println();
-            for( Cluster cluster : clusterer.clusterArrayList){
-//                System.out.println(cluster);
-            }
+//            for( Cluster cluster : clusterer.clusterArrayList){
+//                System.out.println(cluster); // print out the clusters to look
+//            }
         }
+
+        System.out.println("Final Clusters:");
+        for( Cluster cluster : clusterer.clusterArrayList) {
+            System.out.println(cluster); // print out the clusters to look
+        }
+
+
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 

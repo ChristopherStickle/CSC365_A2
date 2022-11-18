@@ -14,7 +14,7 @@ public class Corpus implements Serializable {
             double countOfWord = global_dictionary_eht.getCount(s); //get global count
             double idfScore = 100 / countOfWord; // divide that by number of documents
             global_dictionary_eht.setScore(s, idfScore); // set tfidf score
-            System.out.println( "Key: " + s + " | Score: " + global_dictionary_eht.getScore(s));
+//            System.out.println( "Key: " + s + " | Score: " + global_dictionary_eht.getScore(s));
         }
     }
 
