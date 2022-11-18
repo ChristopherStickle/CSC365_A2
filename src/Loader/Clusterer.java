@@ -69,6 +69,7 @@ public class Clusterer {
     }
 
     public void swapClusters(){
+        Random random = new Random(1);
         ArrayList<ArrayList<PageProperties>> listOfTempLists = new ArrayList<>(10); // create a list of lists
         for(int i = 0; i <10; i++){
             ArrayList newList = new ArrayList<PageProperties>(); // fill list with lists
@@ -86,7 +87,13 @@ public class Clusterer {
                         index = clusterArrayList.indexOf(c); //remember the index
                     }
                 }
-                listOfTempLists.get(index).add(p); // put the page into the correct list in the list
+                double randomNum = random.nextDouble();
+                if(randomNum > 0.15) { // 15 percent of the time we aren't going to swap the thing
+                    listOfTempLists.get(index).add(p); // put the page into the correct list in the list
+                }
+                else if(randomNum < 0.5){ //sometimes we will add it to a random cluster
+                    listOfTempLists.get(random.nextInt(10)).add(p); // put the page into the correct list in the list
+                } // if it's neither the page just stays where it was
             }
         }
         for(Cluster c : clusterArrayList){ //reassign the lists
