@@ -45,9 +45,18 @@ public class Gui extends JFrame {
                     throw new RuntimeException(ex);
                 }
 
-
                 PageProperties userPage = new PageProperties(input_url.substring(30));
+                userPage.setParsed_words(words);
+                corpus.addToWordCount(words.length);
+                ExtendableHashTable input_page_eht = new ExtendableHashTable();
 
+                for (String word:words) {
+                    input_page_eht.add(word);
+                    corpus.getEHT().add(word);
+                    if ( !corpus.getGlobal_dictionary().contains(word) ) { corpus.getGlobal_dictionary().add(word); }
+                }
+
+                userPage.setEHT(input_page_eht);
 
                 TFIDFCalculator.setPagetfidfScore(userPage); //set tfidf scores for the userpage
                 for(PageProperties m : clusterer.allMedoids){
@@ -62,6 +71,8 @@ public class Gui extends JFrame {
                         indexBest = clusterer.clusterArrayList.indexOf(c);
                     }
                 }
+
+
 
 
 

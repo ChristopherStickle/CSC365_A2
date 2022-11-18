@@ -93,7 +93,7 @@ public class ExtendableHashTable implements Serializable {
         return false;
     }
 
-    void add(String key) {
+    public void add(String key) {
         int h = ( key.hashCode() & 0xfffffff );
         int i = (int) (h % (Math.pow(2, global_depth)));
         // Entry found, increment count
