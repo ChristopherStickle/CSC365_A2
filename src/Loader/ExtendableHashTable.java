@@ -136,10 +136,10 @@ public class ExtendableHashTable implements Serializable {
             //  starting at the index of the directory where the original bucket was found
             //  if:
             //      the index of the directory has the same (depth)th bit as the original index of the original bucket
-            //      assign the bucket to the index of the new directory
+            //      assign the 1st bucket to the index of the new directory
             //  else if:
             //      the index of the directory has the same (depth)th bit as the index of the old directory
-            //      assign the bucket to the index of the new directory
+            //      assign the new bucket to the index of the new directory
             for (int j = index; j < dir.length; j++) {
                 if ( (j & (int) (Math.pow(2, depth) - 1)) == bitMatchB1) {
                     dir[j] = dir[i];

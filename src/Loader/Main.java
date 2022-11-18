@@ -15,6 +15,8 @@ public class Main {
         Corpus corpus = new Corpus();
         WebScraper ws = new WebScraper();
         Scanner sc;
+        ArrayList<String> global_dictionary = new ArrayList<>();
+        ArrayList<PageProperties> pageList = new ArrayList<>();
 
         /** Loop through all the links in seed_links.txt and load "see also" links into seeAlsoLinks.txt
           *
@@ -39,7 +41,7 @@ public class Main {
           *
           * DONE
           **/
-        sc = new Scanner(new File("src/Loader/seeAlsoLinks.txt"));
+        /*sc = new Scanner(new File("src/Loader/seeAlsoLinks.txt"));
 
         ArrayList<String> linksArray = new ArrayList<>();
         ArrayList<PageProperties> pageList = new ArrayList<>();
@@ -57,7 +59,7 @@ public class Main {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             String[] words = ws.scrape(url);
-
+            System.out.println("Words parsed from "+url.substring(30));
             page.setParsed_words(words);
             corpus.addToWordCount(words.length);
             ExtendableHashTable eht = new ExtendableHashTable();
@@ -67,6 +69,7 @@ public class Main {
                 corpus_eht.add(word);
                 if ( !global_dictionary.contains(word) ) { global_dictionary.add(word); }
             }
+            System.out.println("EHT complete" + eht.contains("the"));
             oos.writeObject(eht);
 
             page.setEHT(eht);
@@ -92,7 +95,7 @@ public class Main {
         FileOutputStream fos = new FileOutputStream("src/corpus");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(corpus);
-
+        */
 //------------------------------------------------------------------------------------------------------------------------------------------------------
         /*// Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
         // Add the PageProperties object to an ArrayList
@@ -117,7 +120,6 @@ public class Main {
         global_dictionary = (ArrayList<String>) ois.readObject();*/
 //------------------------------------------------------------------------------------------------------------------------------------------------------
         // import PageProperties objects from files
-        pageList = new ArrayList<>();
         File dir = new File("src/PageFiles");
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
@@ -179,13 +181,11 @@ public class Main {
 
 
 
-
-
         double tester = clusterer.findCosSim(page1, page2);
         System.out.println(tester);
 
 
-
+        /*
         //have the clusterer initialize its clusters
         clusterer.instantiateClusters();
 

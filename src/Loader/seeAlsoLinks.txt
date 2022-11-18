@@ -17,7 +17,6 @@ https://en.wikipedia.org/wiki/Forensic_engineering
 https://en.wikipedia.org/wiki/Green_building
 https://en.wikipedia.org/wiki/Industrial_design
 https://en.wikipedia.org/wiki/Infrastructure
-https://en.wikipedia.org/wiki/Mathematics
 https://en.wikipedia.org/wiki/Open-source_hardware
 https://en.wikipedia.org/wiki/Planned_obsolescence
 https://en.wikipedia.org/wiki/Reverse_engineering
@@ -52,7 +51,6 @@ https://en.wikipedia.org/wiki/Art_movements
 https://en.wikipedia.org/wiki/Art_periods
 https://en.wikipedia.org/wiki/Contemporary_art
 https://en.wikipedia.org/wiki/Gesamtkunstwerk
-https://en.wikipedia.org/wiki/History_of_painting
 https://en.wikipedia.org/wiki/Modern_architecture
 https://en.wikipedia.org/wiki/Postmodern_art
 https://en.wikipedia.org/wiki/Western_painting

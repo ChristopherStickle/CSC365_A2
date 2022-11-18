@@ -26,7 +26,7 @@ public class TFIDFCalculator {
                     double wordIDF = corpus.getEHT().getScore(key); //
                     double newScore = (docCount/docLength) * Math.log(wordIDF);
                     page.getEHT().setScore(key, newScore);
-                    System.out.println();
+                    //System.out.println();
                 }
             }
         }
