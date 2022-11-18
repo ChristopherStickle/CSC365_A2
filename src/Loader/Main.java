@@ -1,7 +1,6 @@
 package Loader;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -139,19 +138,6 @@ public class Main {
         ObjectInputStream ois = new ObjectInputStream(fil);
         corpus = (Corpus) ois.readObject();
 
-
-        //assign all the tdidf scores in the hashtables
-
-
-
-        //System.out.println(globalDictionary);
-
-//        System.out.println(pageList.size());
-//        for( PageProperties p : pageList){
-//            System.out.println(p.getName());
-//        }
-
-
         /*
          * Clustering
          */
@@ -163,25 +149,6 @@ public class Main {
         //instantiate a new clusterer
         Clusterer clusterer = new Clusterer(pageList, corpus.global_dictionary);
 
-        /*
-        PageProperties page1 = pageList.get(6); System.out.println("Page1: "+ page1);
-        PageProperties page2 = pageList.get(7); System.out.println("Page2: "+ page2);
-
-        System.out.println("tfidf score of the in page1: " + page1.getEHT().getScore("the"));
-        System.out.println("tfidf score of rousseau in page2: " + page2.getEHT().getScore("rousseau"));
-
-        if (page1.getEHT().contains("the"))
-            System.out.println("Page1 has the. ");
-
-        if (page2.getEHT().contains("the"))
-            System.out.println("Page2 has the. ");
-
-        if(corpus.global_dictionary.contains("the"))
-            System.out.println("dictionary has the");
-
-        double tester = clusterer.findCosSim(page1, page2);
-        System.out.println(tester);
-         */
 
         clusterer.instantiateClusters(); //have the clusterer initialize its clusters
 //        System.out.println("initial clusters");
@@ -213,41 +180,6 @@ public class Main {
         FileOutputStream fos = new FileOutputStream("src/clusterer");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(clusterer);
-
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-        // test ExtendableHashTable ----------------------------------------------------------------------------
-        /*ExtendableHashTable eht = new ExtendableHashTable();
-        WebScraper ws = new WebScraper();
-        String[] words = ws.scrape("https://en.wikipedia.org/wiki/Amaryllidaceae\n");
-        for (String word : words) {
-            eht.add(word);
-        }
-        // assert that each word in words is in the table
-        //System.out.println(words.length);
-        *//*for (String word : words) {
-            System.out.println(word + " is in the table " + eht.contains(word));
-        }*//*
-        // write eht to a file
-        FileOutputStream fos = new FileOutputStream("C:\Users\stick\IdeaProjects\CSC365_A2\src\EHTfiles\testEHT");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(eht);
-        //eht.writeObject(oos);
-
-        // read eht from a file
-        ExtendableHashTable ehtREAD = new ExtendableHashTable();
-        FileInputStream fis = new FileInputStream("C:\Users\stick\IdeaProjects\CSC365_A2\src\EHTfiles\testEHT");
-        ObjectInputStream ois = new ObjectInputStream(fis);
-        ehtREAD = (ExtendableHashTable) ois.readObject();
-
-        ois.close();
-        System.out.println("-------------------READING THE FILE-----------------------");
-        for (String word : words) {
-            System.out.println(word + " is in the table " + ehtREAD.contains(word) + " with count " + ehtREAD.getCount(word));
-        }*/
 
     }
 }

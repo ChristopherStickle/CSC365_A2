@@ -31,9 +31,6 @@ public class Gui extends JFrame {
 
         WebScraper ws = new WebScraper();
 
-        //User inputs a URL; Try to connect to URL, scrape text, save as a string.
-        //
-        //Display most similar URL from DB file
         SearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -57,20 +54,22 @@ public class Gui extends JFrame {
                     if ( !corpus.getGlobal_dictionary().contains(word) ) { corpus.getGlobal_dictionary().add(word); }
                 }
 
-                TFIDFCalculator tfidfCalculator = new TFIDFCalculator(null, corpus.getGlobal_dictionary(), corpus);
+                TFIDFCalculator tfidfCalculator = new TFIDFCalculator( corpus.getGlobal_dictionary(), corpus);
                 corpus.setTFIDFToIDF(); //update idf values in corpus
 
                 userPage.setEHT(input_page_eht); //instantiate tfidf values in userPage
 
-                TFIDFCalculator.setPagetfidfScore(userPage); //set tfidf scores for the userpage
+                tfidfCalculator.setPagetfidfScore(userPage); //set tfidf scores for the userpage
                 for(PageProperties m : clusterer.allMedoids){ //update tfidf with new idf
-                    TFIDFCalculator.setPagetfidfScore(m);
+                    tfidfCalculator.setPagetfidfScore(m);
                 }
 
                 double bestCosSim = 0; int indexBest = 0;
                 for(Cluster c : clusterer.clusterArrayList){ // find the cluster userPage belongs to
-                    double newCosSim = 0; clusterer.findCosSim(userPage, c.medoid);
+                    double newCosSim = clusterer.findCosSim(userPage, c.medoid);
+                    //System.out.println(newCosSim);
                     if(newCosSim > bestCosSim){
+                        //System.out.printf("new medioid");
                         bestCosSim = newCosSim;
                         indexBest = clusterer.clusterArrayList.indexOf(c);
                     }
@@ -80,7 +79,7 @@ public class Gui extends JFrame {
                 userCluster.clusterList.add(userPage); // create that cluster and put user page in it
 
                 for(PageProperties p : userCluster.clusterList){
-                    TFIDFCalculator.setPagetfidfScore(p); //update tfidf scores
+                    tfidfCalculator.setPagetfidfScore(p); //update tfidf scores
                 }
 
                 double bestCosSim2 = 0; int indexBest2 = 0;
