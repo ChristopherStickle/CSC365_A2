@@ -7,7 +7,11 @@ import java.io.Serializable;
 import java.util.*;
 
 public class ExtendableHashTable implements Serializable {
+    static final long serialVersionUID = 811396553750565872L;
+
     private static class Entry implements Serializable {
+        //static final long serialVersionUID = 1L;
+
         String key;
         int count;
         double tfidfScore;
@@ -20,6 +24,8 @@ public class ExtendableHashTable implements Serializable {
     }
 
     private static class Bucket implements Serializable {
+        //static final long serialVersionUID = 1L;
+
         ArrayList<Entry> entries;
         final static int DEFAULT_SIZE = 8;
         int local_depth = 1;

@@ -44,7 +44,7 @@ public class Main {
         /*sc = new Scanner(new File("src/Loader/seeAlsoLinks.txt"));
 
         ArrayList<String> linksArray = new ArrayList<>();
-        ArrayList<PageProperties> pageList = new ArrayList<>();
+        pageList = new ArrayList<>();
         ExtendableHashTable corpus_eht = new ExtendableHashTable();
         ArrayList<String> global_dictionary = new ArrayList<>();
 
@@ -94,8 +94,7 @@ public class Main {
         //write corpus to files
         FileOutputStream fos = new FileOutputStream("src/corpus");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(corpus);
-        */
+        oos.writeObject(corpus);*/
 //------------------------------------------------------------------------------------------------------------------------------------------------------
         /*// Make a PageProperties object for each url, load the Extendable HashTable from the file, and add it to the PageProperties object
         // Add the PageProperties object to an ArrayList

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Clusterer implements Serializable {
+    static final long serialVersionUID = -635505772263533039L;
+
     //all of its clusters
     private Cluster cluster0; private Cluster cluster1; private Cluster cluster2; private Cluster cluster3;
     private Cluster cluster4; private Cluster cluster5; private Cluster cluster6; private Cluster cluster7;

@@ -1,6 +1,7 @@
 package Application;
 
 import Loader.*;
+import jdk.jshell.execution.LoaderDelegate;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +21,7 @@ public class Gui extends JFrame {
     private javax.swing.JPanel jpanel;
 
 
-    public Gui(Corpus corpus, ArrayList<PageProperties> pageList, Clusterer clusterer) {
+    public Gui(Corpus corpus, Clusterer clusterer) {
 
         setContentPane(jpanel);
         setTitle("Webpage Comparator");
@@ -56,6 +57,7 @@ public class Gui extends JFrame {
                     if ( !corpus.getGlobal_dictionary().contains(word) ) { corpus.getGlobal_dictionary().add(word); }
                 }
 
+                TFIDFCalculator tfidfCalculator = new TFIDFCalculator(null, corpus.getGlobal_dictionary(), corpus);
                 corpus.setTFIDFToIDF(); //update idf values in corpus
 
                 userPage.setEHT(input_page_eht); //instantiate tfidf values in userPage
@@ -95,9 +97,9 @@ public class Gui extends JFrame {
                 PageProperties userBestMatch = userCluster.clusterList.get(indexBest2); //assign
 
                 //set text to pretty 
-                textArea1.setText("You entered " + userPage.toString() + ".\n" +
-                        "The closest match is " + userBestMatch.toString() + ".\n" +
-                        "It belong to the cluster " + userCluster.medoid.toString() +
+                textArea1.append("You entered " + userPage.getName() + ".\n" +
+                        "The closest match is " + userBestMatch.getName() + ".\n" +
+                        "It belong to the cluster " + userCluster.medoid.getName() +
                         ", which also contains: \n" + userCluster.clusterList.toString());
 
 
@@ -125,24 +127,8 @@ public class Gui extends JFrame {
     }
     //------------------------------------------------------------------------------------------------------------------
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        ArrayList<Loader.PageProperties> pageList = new ArrayList<>();
         Loader.Corpus corpus;
-
-        File dir = new File("src/PageFiles");
-        File[] directoryListing = dir.listFiles();
-        if (directoryListing != null) {
-            for (File child : directoryListing) {
-                //System.out.println(child.getName());
-                PageProperties page;
-                FileInputStream fis = new FileInputStream("src/PageFiles/"+child.getName());
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                page = (PageProperties) ois.readObject();
-                pageList.add(page);
-            }
-        } else {
-            // throw an exception
-            System.out.println("Error: No PageFiles directory found");
-        }
+        Loader.Clusterer clusterer;
         // import Corpus object from file
         FileInputStream fil = new FileInputStream("src/corpus");
         ObjectInputStream ois = new ObjectInputStream(fil);
@@ -150,9 +136,9 @@ public class Gui extends JFrame {
 
         fil = new FileInputStream("src/clusterer");
         ois = new ObjectInputStream(fil);
-        Clusterer clusterer = (Clusterer) ois.readObject();
+        clusterer = (Clusterer) ois.readObject();
 
 
-        Gui myFrame = new Gui(corpus, pageList, clusterer);
+        Gui myFrame = new Gui(corpus, clusterer);
     }
 }

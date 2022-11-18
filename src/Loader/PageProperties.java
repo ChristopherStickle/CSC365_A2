@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PageProperties implements Serializable {
+    //static final long serialVersionUID = 1L;
 
     String name;
     ExtendableHashTable local_words_eht = new ExtendableHashTable();

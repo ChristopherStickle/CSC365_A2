@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Cluster implements Serializable {
+    static final long serialVersionUID = 5340324687786490679L;
+
     public PageProperties medoid;
     public ArrayList<PageProperties> clusterList;
 
