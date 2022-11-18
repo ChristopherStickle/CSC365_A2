@@ -56,15 +56,17 @@ public class Gui extends JFrame {
                     if ( !corpus.getGlobal_dictionary().contains(word) ) { corpus.getGlobal_dictionary().add(word); }
                 }
 
-                userPage.setEHT(input_page_eht);
+                corpus.setTFIDFToIDF(); //update idf values in corpus
+
+                userPage.setEHT(input_page_eht); //instantiate tfidf values in userPage
 
                 TFIDFCalculator.setPagetfidfScore(userPage); //set tfidf scores for the userpage
-                for(PageProperties m : clusterer.allMedoids){
+                for(PageProperties m : clusterer.allMedoids){ //update tfidf with new idf
                     TFIDFCalculator.setPagetfidfScore(m);
                 }
 
                 double bestCosSim = 0; int indexBest = 0;
-                for(Cluster c : clusterer.clusterArrayList){
+                for(Cluster c : clusterer.clusterArrayList){ // find the cluster userPage belongs to
                     double newCosSim = 0; clusterer.findCosSim(userPage, c.medoid);
                     if(newCosSim > bestCosSim){
                         bestCosSim = newCosSim;
@@ -73,14 +75,14 @@ public class Gui extends JFrame {
                 }
 
                 Cluster userCluster = clusterer.clusterArrayList.get(indexBest);
-                userCluster.clusterList.add(userPage);
+                userCluster.clusterList.add(userPage); // create that cluster and put user page in it
 
                 for(PageProperties p : userCluster.clusterList){
-                    TFIDFCalculator.setPagetfidfScore(p);
+                    TFIDFCalculator.setPagetfidfScore(p); //update tfidf scores
                 }
 
                 double bestCosSim2 = 0; int indexBest2 = 0;
-                for(PageProperties page : userCluster.clusterList){
+                for(PageProperties page : userCluster.clusterList){ // find which in cluster is best match to userPage
                     if( page != userPage){
                         double newCosSim2 = clusterer.findCosSim(page, userPage);
                         if(newCosSim2 > bestCosSim2){
@@ -90,8 +92,9 @@ public class Gui extends JFrame {
                     }
                 }
 
-                PageProperties userBestMatch = userCluster.clusterList.get(indexBest2);
+                PageProperties userBestMatch = userCluster.clusterList.get(indexBest2); //assign
 
+                //set text to pretty 
                 textArea1.setText("You entered " + userPage.toString() + ".\n" +
                         "The closest match is " + userBestMatch.toString() + ".\n" +
                         "It belong to the cluster " + userCluster.medoid.toString() +
