@@ -196,14 +196,15 @@ public class Main {
 
 
         //do the cluster algorithm 5 times
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 4; i++){
             clusterer.swapClusters(); // run a swap on all clusters
             clusterer.recenterClusters(); // recenter all the clusters
-            System.out.println("completed one iteration :)\n"); //System.out.println();
+            System.out.println("completed one iteration :)");
 //            for( Cluster cluster : clusterer.clusterArrayList){
 //                System.out.println(cluster); // print out the clusters to look
 //            }
         }
+        clusterer.finalRecenterClusters();
 
         System.out.println("Final Clusters:");
         for( Cluster cluster : clusterer.clusterArrayList) {

@@ -1,8 +1,6 @@
 package Loader;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
 import java.util.Random;
 
 public class Clusterer {
@@ -13,10 +11,10 @@ public class Clusterer {
 
     //ArrayLists of clusters and PageProperties
     ArrayList<Cluster> clusterArrayList;
-    private ArrayList<PageProperties> allPages;
-    private ArrayList<String> allUniqueWords;
-
-    private ArrayList<PageProperties> allMedoids = new ArrayList<>();
+    ArrayList<PageProperties> allPages;
+    ArrayList<String> allUniqueWords;
+    ArrayList<PageProperties> allMedoids = new ArrayList<>();
+    Random random = new Random(1);
 
     //constructor
     public Clusterer(ArrayList<PageProperties> allPages, ArrayList<String> allUniqueWords){
@@ -69,7 +67,6 @@ public class Clusterer {
     }
 
     public void swapClusters(){
-        Random random = new Random(1);
         ArrayList<ArrayList<PageProperties>> listOfTempLists = new ArrayList<>(10); // create a list of lists
         for(int i = 0; i <10; i++){
             ArrayList newList = new ArrayList<PageProperties>(); // fill list with lists
@@ -98,12 +95,15 @@ public class Clusterer {
         }
         for(Cluster c : clusterArrayList){ //reassign the lists
             c.clusterList = listOfTempLists.get(clusterArrayList.indexOf(c));
-            c.clusterList.add(c.medoid);
+            if (c.clusterList.size() == 0) {
+                c.clusterList.add(c.medoid);
+            }
 //            System.out.println(c);
         }
     }
 
     public void recenterClusters(){
+
         for(Cluster c : clusterArrayList){ // for every cluster we have
             double bestClusterSum = 0; int bestIndex = 0; // create things to compare to and keep track of the best
             for(PageProperties p : c.clusterList){ // for every page in the cluster
@@ -112,10 +112,38 @@ public class Clusterer {
                     newSum = newSum + findCosSim(p, p1); // let each page act as the medoid
                 }
                 if(newSum > bestClusterSum){ // if this page was a better medoid
+//                    System.out.println("We be swapping");
                     bestIndex = c.clusterList.indexOf(p); // note the index
                     bestClusterSum = newSum; // replace the sum and do it again
                 }
             }
+            double randomNum = random.nextDouble();
+            if (randomNum > .20) {
+//                System.out.println("correct recenter");
+                c.setMedoid(c.clusterList.get(bestIndex)); // set the best as the new medoid and go to next cluster
+            } else {
+                System.out.println("random recenter");
+//                c.setMedoid(c.clusterList.get(random.nextInt(c.clusterList.size())));
+            }
+        }
+    }
+
+    public void finalRecenterClusters(){
+
+        for(Cluster c : clusterArrayList){ // for every cluster we have
+            double bestClusterSum = 0; int bestIndex = 0; // create things to compare to and keep track of the best
+            for(PageProperties p : c.clusterList){ // for every page in the cluster
+                double newSum = 0; //make second object to compare to
+                for(PageProperties p1 : c.clusterList){ // for every page in the cluster
+                    newSum = newSum + findCosSim(p, p1); // let each page act as the medoid
+                }
+                if(newSum > bestClusterSum){ // if this page was a better medoid
+//                    System.out.println("We be swapping");
+                    bestIndex = c.clusterList.indexOf(p); // note the index
+                    bestClusterSum = newSum; // replace the sum and do it again
+                }
+            }
+//            System.out.println("correct recenter");
             c.setMedoid(c.clusterList.get(bestIndex)); // set the best as the new medoid and go to next cluster
         }
     }
