@@ -196,7 +196,7 @@ public class Main {
 
 
         //do the cluster algorithm 5 times
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < 3; i++){
             clusterer.swapClusters(); // run a swap on all clusters
             clusterer.recenterClusters(); // recenter all the clusters
             System.out.println("completed one iteration :)");

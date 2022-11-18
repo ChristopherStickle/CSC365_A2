@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class TFIDFCalculator {
 
 //    private static final double DOC_COUNT = 100;
-    Corpus corpus;
+static Corpus corpus;
     ArrayList<PageProperties> allPages;
-    ArrayList<String> globalDictionary;
+    static ArrayList<String> globalDictionary;
 
 
 
