@@ -4,6 +4,8 @@ This represents some of my work in
 CSC 365 - Data Structures and Algorithms
 At SUNY Oswego
 
+This program was a joint collaboration with Keith Allen (github.com/KeithTAllen)
+
 This extends Assignment 1 using persistent data structures and additional similarity analyses. It requires two programs.
 
 Loader:
